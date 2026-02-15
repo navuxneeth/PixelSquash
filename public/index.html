@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelSquash - Retro Image Tools</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="pixel-header">
+            <h1 class="pixel-title">🎮 PIXELSQUASH 🎮</h1>
+            <p class="pixel-subtitle">YOUR RETRO IMAGE PROCESSING TOOLKIT</p>
+        </header>
+
+        <main class="features-container">
+            <!-- Feature 1: Website Image Scraper -->
+            <section class="feature-box">
+                <div class="feature-header">
+                    <h2>📸 FEATURE 1: WEBSITE IMAGE SCRAPER</h2>
+                </div>
+                <div class="feature-content">
+                    <p class="feature-description">Extract all images from any website and download them as a ZIP file.</p>
+                    <div class="input-group">
+                        <input 
+                            type="url" 
+                            id="websiteUrl" 
+                            placeholder="Enter website URL (e.g., https://example.com)"
+                            class="pixel-input"
+                        >
+                        <button onclick="fetchImages()" class="pixel-button">FETCH IMAGES</button>
+                    </div>
+                    <div id="feature1Status" class="status-message"></div>
+                    <div id="feature1Progress" class="progress-bar" style="display: none;">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature 2: Image to WebP Converter -->
+            <section class="feature-box">
+                <div class="feature-header">
+                    <h2>🖼️ FEATURE 2: IMAGE TO WEBP CONVERTER</h2>
+                </div>
+                <div class="feature-content">
+                    <p class="feature-description">Convert unlimited JPG, JPEG, PNG images to WebP format.</p>
+                    <div class="input-group">
+                        <label for="imageFiles" class="pixel-button file-label">
+                            CHOOSE IMAGES
+                            <input 
+                                type="file" 
+                                id="imageFiles" 
+                                multiple 
+                                accept=".jpg,.jpeg,.png"
+                                style="display: none;"
+                                onchange="updateFileCount('imageFiles', 'imageCount')"
+                            >
+                        </label>
+                        <button onclick="convertToWebP()" class="pixel-button">CONVERT TO WEBP</button>
+                    </div>
+                    <div id="imageCount" class="file-count"></div>
+                    <div id="feature2Status" class="status-message"></div>
+                    <div id="feature2Progress" class="progress-bar" style="display: none;">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature 3: Video/GIF to WebM Converter -->
+            <section class="feature-box">
+                <div class="feature-header">
+                    <h2>🎬 FEATURE 3: VIDEO/GIF TO WEBM CONVERTER</h2>
+                </div>
+                <div class="feature-content">
+                    <p class="feature-description">Convert videos and GIFs to efficient WebM format.</p>
+                    <div class="input-group">
+                        <label for="videoFile" class="pixel-button file-label">
+                            CHOOSE VIDEO/GIF
+                            <input 
+                                type="file" 
+                                id="videoFile" 
+                                accept="video/*,.gif"
+                                style="display: none;"
+                                onchange="updateFileCount('videoFile', 'videoCount')"
+                            >
+                        </label>
+                        <button onclick="convertToWebM()" class="pixel-button">CONVERT TO WEBM</button>
+                    </div>
+                    <div id="videoCount" class="file-count"></div>
+                    <div id="feature3Status" class="status-message"></div>
+                    <div id="feature3Progress" class="progress-bar" style="display: none;">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="pixel-footer">
+            <p>🕹️ PIXELSQUASH - RETRO TOOLS FOR MODERN IMAGES 🕹️</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
