@@ -7,7 +7,6 @@ const archiver = require('archiver');
 const path = require('path');
 const fs = require('fs').promises;
 const fsSync = require('fs');
-const { promisify } = require('util');
 const cors = require('cors');
 const ffmpeg = require('fluent-ffmpeg');
 
@@ -136,10 +135,10 @@ app.post('/api/fetch-images', async (req, res) => {
 
         await archive.finalize();
 
-        // Cleanup files after sending
-        setTimeout(() => {
+        // Cleanup files after response finishes
+        res.on('finish', () => {
             cleanupFiles(imageFiles.map(f => f.path));
-        }, 1000);
+        });
 
     } catch (error) {
         console.error('Error fetching images:', error);
@@ -197,14 +196,14 @@ app.post('/api/convert-to-webp', upload.array('images', 100), async (req, res) =
 
         await archive.finalize();
 
-        // Cleanup files after sending
-        setTimeout(() => {
+        // Cleanup files after response finishes
+        res.on('finish', () => {
             const allFiles = [
                 ...req.files.map(f => f.path),
                 ...convertedFiles.map(f => f.path)
             ];
             cleanupFiles(allFiles);
-        }, 1000);
+        });
 
     } catch (error) {
         console.error('Error converting images:', error);
@@ -248,11 +247,9 @@ app.post('/api/convert-to-webm', upload.single('video'), async (req, res) => {
         const fileStream = fsSync.createReadStream(outputPath);
         fileStream.pipe(res);
 
-        fileStream.on('end', () => {
-            // Cleanup files after sending
-            setTimeout(() => {
-                cleanupFiles([req.file.path, outputPath]);
-            }, 1000);
+        // Cleanup files after response finishes
+        res.on('finish', () => {
+            cleanupFiles([req.file.path, outputPath]);
         });
 
     } catch (error) {
